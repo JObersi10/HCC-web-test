@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rules | Hack Club Curaçao</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<link rel="icon" type="image/svg+xml" href="logo.svg">
+    <style>
+        @font-face { font-family: 'Phantom Sans'; src: url('https://assets.hackclub.com/fonts/Phantom_Sans_0.7/Regular.woff') format('woff'); }
+        
+        body {
+            font-family: 'Phantom Sans', sans-serif;
+            margin: 0; padding: 0;
+            background: #000080;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0; left: 0;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .glass { 
+            background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(16px); 
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 30px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .glass:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(253, 224, 71, 0.4);
+            transform: translateY(-5px);
+        }
+
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1.2);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+        }
+
+        .btn-glass:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #FDE047;
+            box-shadow: 0 0 20px rgba(253, 224, 71, 0.2);
+            transform: scale(1.05);
+        }
+
+        .rule-card {
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .rule-number {
+            color: #FDE047;
+            font-weight: 900;
+            margin-right: 0.5rem;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000080; }
+        ::-webkit-scrollbar-thumb { background: #FDE047; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <canvas id="three-canvas"></canvas>
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full p-4 md:p-8 flex justify-between items-center z-50">
+        <a href="index.html" class="p-2 rounded-xl bg-transparent transition-transform hover:scale-110">
+            <img src="logo.svg" alt="Hack Club Curaçao" class="h-8 md:h-10 w-auto rounded-lg">
+        </a>
+        
+        <div class="flex gap-2 md:gap-4 font-bold uppercase tracking-widest text-[9px] md:text-[10px]">
+            <a href="index.html" class="btn-glass px-3 md:px-5 py-2 rounded-full">Home</a>
+            <a href="signup/signup.html" class="btn-glass px-4 md:px-6 py-2 md:py-2.5 rounded-xl md:rounded-2xl font-black uppercase tracking-tighter text-[9px] md:text-xs shadow-xl">
+                Join
+            </a>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <main class="pt-32 pb-20 px-4 max-w-4xl mx-auto">
+        <div class="glass p-8 md:p-12 mb-10 text-center">
+            <h1 class="text-5xl md:text-7xl font-black italic tracking-tighter uppercase leading-none mb-4">
+                Club <span class="text-yellow-400">Rules</span>
+            </h1>
+            <p class="text-lg opacity-80 font-bold uppercase tracking-widest">
+                Keep it safe, productive, and fun.
+            </p>
+        </div>
+
+        <div class="grid gap-6">
+            <!-- Respect -->
+            <div class="glass rule-card">
+                <h3 class="text-xl font-black uppercase italic mb-2"><span class="rule-number">01</span> Respect Everyone</h3>
+                <p class="opacity-80">Be kind. No bullying, harassment, hate speech, or putting others down. If someone asks you to stop, stop immediately.</p>
+            </div>
+
+            <!-- Content -->
+            <div class="glass rule-card">
+                <h3 class="text-xl font-black uppercase italic mb-2"><span class="rule-number">02</span> Keep It Clean</h3>
+                <p class="opacity-80">No swearing or inappropriate jokes, comments, images, or topics. This is a 13+ space.</p>
+            </div>
+
+            <!-- Focus -->
+            <div class="glass rule-card">
+                <h3 class="text-xl font-black uppercase italic mb-2"><span class="rule-number">03</span> Stay Focused</h3>
+                <p class="opacity-80">Don’t distract people who are working. Stay on topic. If you’re bored or done early, tell a leader or helper.</p>
+            </div>
+
+            <!-- Privacy -->
+            <div class="glass rule-card">
+                <h3 class="text-xl font-black uppercase italic mb-2"><span class="rule-number">04</span> Respect Privacy</h3>
+                <p class="opacity-80">Don’t share personal info. Don’t take or post photos/videos without permission. No threatening, blackmailing, or sharing private messages.</p>
+            </div>
+
+            <!-- Staff -->
+            <div class="glass rule-card">
+                <h3 class="text-xl font-black uppercase italic mb-2"><span class="rule-number">05</span> Listen to Staff</h3>
+                <p class="opacity-80">Don’t interrupt. Follow instructions from leaders and moderators. Their decisions are final.</p>
+            </div>
+
+            <!-- Equipment -->
+            <div class="glass rule-card">
+                <h3 class="text-xl font-black uppercase italic mb-2"><span class="rule-number">06</span> Respect Equipment</h3>
+                <p class="opacity-80">Take care of your device and others’ property. Don’t touch someone else’s laptop without asking.</p>
+            </div>
+
+            <!-- Cleanup -->
+            <div class="glass rule-card">
+                <h3 class="text-xl font-black uppercase italic mb-2"><span class="rule-number">07</span> Clean Up</h3>
+                <p class="opacity-80">Help pack up, throw away trash, and leave the space clean.</p>
+            </div>
+        </div>
+
+        <div class="mt-10 text-center opacity-50 text-xs font-bold uppercase tracking-widest">
+            Failure to follow rules may result in removal from club.
+        </div>
+    </main>
+
+    <script>
+        let scene, camera, renderer, knot, particles;
+
+        function init3D() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('three-canvas'), alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
+            knot = new THREE.Mesh(geometry, new THREE.MeshNormalMaterial({ wireframe: true }));
+            scene.add(knot);
+
+            const pCount = 1000;
+            const pos = new Float32Array(pCount * 3);
+            for(let i=0; i<pCount*3; i++) pos[i] = (Math.random() - 0.5) * 100;
+            const pGeo = new THREE.BufferGeometry();
+            pGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+            particles = new THREE.Points(pGeo, new THREE.PointsMaterial({ color: 0xFDE047, size: 0.15 }));
+            scene.add(particles);
+
+            camera.position.z = 40;
+
+            function animate() {
+                requestAnimationFrame(animate);
+                knot.rotation.x += 0.002; knot.rotation.y += 0.003;
+                particles.rotation.y -= 0.0005;
+                renderer.render(scene, camera);
+            }
+            animate();
+        }
+
+        window.onload = init3D;
+        window.onresize = () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        };
+    </script>
+</body>
+</html>
