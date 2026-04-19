@@ -37,6 +37,8 @@
             background: #000080;
             color: white;
             overflow-x: hidden;
+            /* Prevents flickering on scroll */
+            -webkit-font-smoothing: antialiased;
         }
 
         canvas {
@@ -55,15 +57,17 @@
             border: 1px solid rgba(255, 255, 255, 0.1); 
             border-radius: 30px;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* Force GPU Layer */
+            transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
         }
 
         .glass:hover {
             background: rgba(255, 255, 255, 0.08);
             border-color: rgba(253, 224, 71, 0.4);
-            transform: translateY(-5px) scale(1.01);
+            transform: translate3d(0, -5px, 0) scale(1.01);
         }
 
-        /* --- LIQUID GLASS INTERACTION --- */
         .btn-glass {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
@@ -74,6 +78,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            transform: translate3d(0,0,0);
         }
 
         .btn-glass:hover {
@@ -83,60 +88,92 @@
             transform: scale(1.05);
         }
 
-        .btn-glass:active {
-            transform: scale(0.92);
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(25px);
-            border-color: rgba(253, 224, 71, 0.8);
-            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2);
-            transition: all 0.1s ease;
-        }
-
-        /* Logo Easter Egg Styling */
         .logo-container {
             cursor: pointer;
             transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             user-select: none;
         }
-        
-        .logo-container:active {
-            transform: scale(0.8) rotate(-5deg);
-        }
 
         .section-padding { padding: 80px 20px; }
-        
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #000080; }
         ::-webkit-scrollbar-thumb { background: #FDE047; border-radius: 10px; }
 
-        .social-link:hover svg {
-            transform: rotate(10deg) scale(1.1);
-            fill: #FDE047;
+        /* --- THE FIXED SPONSOR LOOP --- */
+        .sponsor-container {
+            overflow: hidden;
+            padding: 60px 0;
+            position: relative;
+            transform: skewY(-3deg) translate3d(0,0,0); 
+            background: rgba(255, 255, 255, 0.03);
+            margin-top: 40px;
+            will-change: transform;
         }
-        svg { transition: all 0.3s ease; }
+
+        .sponsor-track {
+            display: flex;
+            width: max-content;
+            animation: scroll 30s linear infinite; 
+            /* Ensures no "pop" at loop end */
+            will-change: transform;
+        }
+
+        .sponsor-track img {
+            height: 40px;
+            margin: 0 40px;
+            transform: skewY(3deg); 
+            filter: grayscale(1) brightness(3);
+            opacity: 0.4;
+        }
+
+        @keyframes scroll {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+        }
+
+     /* Clean styles for social bar */
+.team-socials {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+    justify-content: center;
+}
+.social-icon {
+    color: white;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+}
+.social-icon:hover {
+    opacity: 1;
+    color: #FDE047;
+    transform: translateY(-2px);
+}
+.social-icon svg {
+    width: 20px;
+    height: 20px;
+}
     </style>
 </head>
 <body>
 
     <canvas id="three-canvas"></canvas>
 
-    <!-- Navbar -->
     <nav class="fixed top-0 w-full p-4 md:p-8 flex justify-between items-center z-50">
         <div id="logo-easter-egg" class="logo-container p-2 rounded-xl bg-transparent">
             <img src="logo.svg" alt="Hack Club Curaçao" class="h-8 md:h-10 w-auto rounded-lg">
         </div>
         
         <div class="flex gap-2 md:gap-4 font-bold uppercase tracking-widest text-[9px] md:text-[10px]">
+            <a href="rules.html" class="btn-glass px-3 md:px-5 py-2 rounded-full">Rules</a>
+            <a href="schedule.html" class="btn-glass px-3 md:px-5 py-2 rounded-full">Schedule</a>
             <a href="#about" class="btn-glass px-3 md:px-5 py-2 rounded-full">About</a>
             <a href="#contact" class="btn-glass px-3 md:px-5 py-2 rounded-full">Contact</a>
-            <a href="rules.html" class="btn-glass px-3 md:px-5 py-2 rounded-full">Rules</a>
             <a href="https://join.curahack.club" class="btn-glass px-4 md:px-6 py-2 md:py-2.5 rounded-xl md:rounded-2xl font-black uppercase tracking-tighter text-[9px] md:text-xs shadow-xl">
                 Join
             </a>
         </div>
     </nav>
 
-    <!-- Hero -->
     <section class="min-h-screen flex flex-col justify-center items-center text-center px-4">
         <div class="glass p-10 md:p-20 shadow-2xl max-w-5xl">
             <h1 class="text-6xl sm:text-7xl md:text-9xl font-black italic tracking-tighter uppercase leading-[0.85] mb-6">
@@ -149,35 +186,196 @@
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="section-padding max-w-6xl mx-auto grid md:grid-cols-2 gap-10">
-        <div class="glass p-8 md:p-10">
-            <h2 class="text-4xl font-black uppercase italic mb-6">What we do</h2>
-            <p class="text-lg opacity-80 leading-relaxed mb-6">
-                We are a proud chapter of <a href="https://hackclub.com" target="_blank" class="text-yellow-400 underline hover:opacity-80">Hack Club</a>, a global non-profit community for student makers. 
-            </p>
-            <p class="text-lg opacity-80 leading-relaxed mb-6">
-                <strong>Club Meetings:</strong> We get together to enjoy the evening, code in groups, and work on our projects. It's a space to learn from mistakes and build cool things.
-            </p>
-            <p class="text-lg opacity-80 leading-relaxed mb-6">
-                <strong>Hackathons:</strong> Huge events where everyone is invited to show off what they've built, code together, and just have fun.
-            </p>
-            <p class="text-lg opacity-80 leading-relaxed">
-                <strong>YSWS:</strong> "You Ship, We Ship" build a project, share it with the world, and get free hardware or stickers from the global community.
+<section id="about" class="section-padding max-w-6xl mx-auto grid md:grid-cols-2 gap-10">
+    <div class="glass p-8 md:p-10">
+        <h2 class="text-4xl font-black uppercase italic mb-6">What we do</h2>
+        <p class="text-lg opacity-80 leading-relaxed mb-6">
+            We are a proud chapter of <a href="https://hackclub.com" target="_blank" class="text-yellow-400 underline hover:opacity-80 font-bold">Hack Club</a>, a global non-profit community of high schoolers building the future. At Hack Club Curaçao, we believe the best way to learn is by actually making things; not just watching tutorials.
+        </p>
+        
+        <div class="space-y-6">
+            <div>
+                <h3 class="text-xl font-black uppercase text-yellow-400">Weekly Meetings</h3>
+                <p class="opacity-80 leading-relaxed">
+                    Think of this as a "gym for programmers." We hang out, share snacks, and work on whatever we want. Whether you're building a website, a game, or a robot, there’s always someone nearby to help when you get stuck.
+                </p>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-black uppercase text-yellow-400">Hackathons</h3>
+                <p class="opacity-80 leading-relaxed">
+                    A "hackathon" isn't about breaking into banks; it's an invention marathon. We get together for 12–24 hours to build a project from scratch. It's high-energy, full of collaboration, and the fastest way to level up your skills.
+                </p>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-black uppercase text-yellow-400">YSWS (You Ship, We Ship)</h3>
+                <p class="opacity-80 leading-relaxed">
+                    This is the magic of the Hack Club network. When you finish a project ("ship it"), you can get real-world rewards. We’ve had members get free $100 electronics grants, professional software stickers, and even custom-made circuit boards just for showing what they built.
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="glass p-8 md:p-10 flex flex-col justify-center border-yellow-400/20">
+        <h2 class="text-4xl font-black uppercase italic mb-2 text-yellow-400">The Vibes</h2>
+        <p class="text-sm font-bold tracking-widest opacity-60 uppercase mb-8">No prior experience required</p>
+        
+        <ul class="space-y-6 text-xl font-bold italic">
+            <li class="flex items-start gap-4 transition-all hover:translate-x-2">
+                <span class="text-2xl">⚡</span>
+                <div>
+                    <p class="leading-none">LEARN BY DOING</p>
+                    <p class="text-sm font-normal opacity-60 not-italic mt-1">Forget boring lectures. We build first and ask questions later.</p>
+                </div>
+            </li>
+            <li class="flex items-start gap-4 transition-all hover:translate-x-2">
+                <span class="text-2xl">🛠️</span>
+                <div>
+                    <p class="leading-none">HARDWARE & SOFTWARE</p>
+                    <p class="text-sm font-normal opacity-60 not-italic mt-1">From mobile apps to physical circuits and Arduino projects.</p>
+                </div>
+            </li>
+            <li class="flex items-start gap-4 transition-all hover:translate-x-2">
+                <span class="text-2xl">🌐</span>
+                <div>
+                    <p class="leading-none">GLOBAL NETWORK</p>
+                    <p class="text-sm font-normal opacity-60 not-italic mt-1">Connect with 30,000+ student hackers in the global Slack.</p>
+                </div>
+            </li>
+            <li class="flex items-start gap-4 transition-all hover:translate-x-2">
+                <span class="text-2xl">🤝</span>
+                <div>
+                    <p class="leading-none">100% STUDENT LED</p>
+                    <p class="text-sm font-normal opacity-60 not-italic mt-1">Created by students, for students. No teachers, just builders.</p>
+                </div>
+            </li>
+        </ul>
+
+        <div class="mt-10 p-4 bg-yellow-400/10 border border-yellow-400/30 rounded-2xl">
+            <p class="text-sm italic opacity-90">
+                <strong>New to coding?</strong> That is perfect. Most of our members started with zero knowledge. We'll help you write your first line of code.
             </p>
         </div>
-        <div class="glass p-8 md:p-10 flex flex-col justify-center border-yellow-400/20">
-            <h2 class="text-4xl font-black uppercase italic mb-6 text-yellow-400">The Vibes</h2>
-            <ul class="space-y-4 text-xl font-bold italic">
-                <li class="flex items-center gap-3 transition-all hover:translate-x-2"><span class="text-yellow-400">⚡</span> LEARN BY DOING</li>
-                <li class="flex items-center gap-3 transition-all hover:translate-x-2"><span class="text-yellow-400">🛠️</span> HARDWARE & SPRINTING</li>
-                <li class="flex items-center gap-3 transition-all hover:translate-x-2"><span class="text-yellow-400">🌐</span> GLOBAL NETWORK</li>
-                <li class="flex items-center gap-3 transition-all hover:translate-x-2"><span class="text-yellow-400">🤝</span> 100% STUDENT LED</li>
-            </ul>
+    </div>
+</section>
+
+<section id="join" class="section-padding max-w-6xl mx-auto relative z-10">
+    <div class="glass p-10 md:p-12">
+        <div class="text-center mb-12">
+            <h2 class="text-5xl font-black uppercase italic tracking-tighter">How to Join</h2>
+            <p class="text-yellow-400 font-bold tracking-widest uppercase text-sm mt-2">Start your journey in 4 steps</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            
+            <div class="relative p-6 bg-white/5 rounded-2xl border border-white/10 hover:border-yellow-400/50 transition-colors group">
+                <span class="absolute -top-4 -left-4 w-10 h-10 bg-yellow-400 text-blue-900 flex items-center justify-center rounded-full font-black italic shadow-lg">01</span>
+                <h3 class="text-xl font-bold uppercase mb-3 mt-2">Apply</h3>
+                <p class="text-sm opacity-70 leading-relaxed mb-6">Click the button below or go to <span class="text-yellow-400">join.curahack.club</span> to fill out our application form.</p>
+                <a href="https://join.curahack.club" class="btn-glass w-full py-3 rounded-xl font-black uppercase text-xs tracking-widest">Open Form</a>
+            </div>
+
+            <div class="relative p-6 bg-white/5 rounded-2xl border border-white/10 group">
+                <span class="absolute -top-4 -left-4 w-10 h-10 bg-white text-blue-900 flex items-center justify-center rounded-full font-black italic shadow-lg">02</span>
+                <h3 class="text-xl font-bold uppercase mb-3 mt-2">Verification</h3>
+                <p class="text-sm opacity-70 leading-relaxed">Wait for an email from us. We review every form manually to keep the community safe, so it might take a moment!</p>
+            </div>
+
+            <div class="relative p-6 bg-white/5 rounded-2xl border border-white/10 hover:border-green-400/50 transition-colors group">
+                <span class="absolute -top-4 -left-4 w-10 h-10 bg-green-500 text-white flex items-center justify-center rounded-full font-black italic shadow-lg">03</span>
+                <h3 class="text-xl font-bold uppercase mb-3 mt-2">The Comms</h3>
+                <p class="text-sm opacity-70 leading-relaxed mb-6">Join our WhatsApp group for real-time updates on workshops and club news.</p>
+                <a href="https://chat.whatsapp.com/FS3i8fJTa6t57sBm7FNlSE" class="btn-glass w-full py-3 rounded-xl font-black uppercase text-xs tracking-widest border-green-500/30">Join WhatsApp</a>
+            </div>
+
+            <div class="relative p-6 bg-white/5 rounded-2xl border border-white/10 group">
+                <span class="absolute -top-4 -left-4 w-10 h-10 bg-yellow-400 text-blue-900 flex items-center justify-center rounded-full font-black italic shadow-lg">04</span>
+                <h3 class="text-xl font-bold uppercase mb-3 mt-2">Show Up</h3>
+                <p class="text-sm opacity-70 leading-relaxed">Check the <a href="schedule.html" class="text-yellow-400 underline">schedule</a> and come to your first meeting. <strong>Bring your ID</strong> so we can verify you're a teenager!</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+<section id="team" class="section-padding max-w-6xl mx-auto relative z-10">
+    <div class="glass p-10 md:p-12 text-center">
+        <h2 class="text-5xl font-black uppercase italic mb-12 tracking-tighter">The Team</h2>
+        <div class="flex flex-wrap justify-center gap-12">
+            
+            <!--1-->
+            <div class="flex flex-col items-center group">
+                <div class="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-transparent group-hover:border-yellow-400 transition-all duration-300 shadow-xl mb-4 bg-white/10">
+                    <img src="content/team1.jpeg" alt="Chakradhar Vintha" class="w-full h-full object-cover">
+                </div>
+                <h3 class="text-xl font-bold uppercase italic leading-tight">Chakradhar Vintha</h3>
+                <p class="text-yellow-400 text-[10px] md:text-xs font-black uppercase tracking-widest mt-1">Leader & Founder</p>
+                
+                <div class="team-socials">
+                    <a href="mailto:chakradharreddyvintha@proton.me" class="social-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></a>
+                    <a href="https://www.instagram.com/chak_cv24/" class="social-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+                </div>
+            </div>
+
+
+<!--2-->
+            <div class="flex flex-col items-center group">
+                <div class="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-transparent group-hover:border-yellow-400 transition-all duration-300 shadow-xl mb-4 bg-white/10">
+                    <img src="content/team2.jpeg" alt="Chakradhar Vintha" class="w-full h-full object-cover">
+                </div>
+                <h3 class="text-xl font-bold uppercase italic leading-tight">Jaden Obersi</h3>
+                <p class="text-yellow-400 text-[10px] md:text-xs font-black uppercase tracking-widest mt-1">Co-leader & Co-founder</p>
+                
+                <div class="team-socials">
+                    <a href="mailto:jaden@curahack.club" class="social-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></a>
+                    <a href="https://www.instagram.com/editedby_jobersi/" class="social-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+                
+                </div>
+            </div>
+
+
+
+            </div>
+    </div>
+</section>
+
+
+
+
+
+
+    <section class="relative py-24 overflow-hidden bg-white/5 border-y border-white/10">
+        <div class="relative z-10 max-w-5xl mx-auto text-center px-6 mb-12">
+            <h2 class="text-4xl md:text-6xl font-black uppercase italic mb-4">International Impact</h2>
+            <p class="text-lg md:text-xl opacity-80 max-w-2xl mx-auto">
+                Hack Club is a global 501(c)(3) nonprofit supported by visionary partners like 
+                <span class="text-yellow-400 font-bold">Elon Musk, Tom Preston-Werner (GitHub), and OpenAI</span>. 
+            </p>
+        </div>
+
+        <div class="sponsor-container">
+            <div class="sponsor-track">
+                <img src="content/sponsor1.png" alt="s1"> <img src="content/sponsor2.png" alt="s2">
+                <img src="content/sponsor3.png" alt="s3"> <img src="content/sponsor4.png" alt="s4">
+                <img src="content/sponsor5.png" alt="s5"> <img src="content/sponsor6.png" alt="s6">
+                <img src="content/sponsor7.png" alt="s7"> <img src="content/sponsor8.png" alt="s8">
+                <img src="content/sponsor9.png" alt="s9"> <img src="content/sponsor10.png" alt="s10">
+                <img src="content/sponsor11.png" alt="s11">
+                <img src="content/sponsor1.png" alt="s1"> <img src="content/sponsor2.png" alt="s2">
+                <img src="content/sponsor3.png" alt="s3"> <img src="content/sponsor4.png" alt="s4">
+                <img src="content/sponsor5.png" alt="s5"> <img src="content/sponsor6.png" alt="s6">
+                <img src="content/sponsor7.png" alt="s7"> <img src="content/sponsor8.png" alt="s8">
+                <img src="content/sponsor9.png" alt="s9"> <img src="content/sponsor10.png" alt="s10">
+                <img src="content/sponsor11.png" alt="s11">
+            </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact" class="section-padding text-center">
         <div class="glass p-10 md:p-12 max-w-4xl mx-auto">
             <h2 class="text-5xl font-black uppercase italic mb-8 tracking-tighter">Connect with us</h2>
@@ -206,31 +404,37 @@
         function init3D() {
             scene = new THREE.Scene();
             camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('three-canvas'), alpha: true, antialias: !isLowEnd(), powerPreference: "high-performance" });
+            
+            renderer = new THREE.WebGLRenderer({ 
+                canvas: document.getElementById('three-canvas'), 
+                alpha: true, 
+                antialias: false, 
+                powerPreference: "high-performance" 
+            });
             renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            // Limit Pixel Ratio for performance
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 
-            const geometry = new THREE.TorusKnotGeometry(10, 3, isLowEnd() ? 64 : 100, 16);
+            const geometry = new THREE.TorusKnotGeometry(10, 3, isLowEnd() ? 50 : 80, 12);
             knot = new THREE.Mesh(geometry, new THREE.MeshNormalMaterial({ wireframe: true }));
             scene.add(knot);
 
-            const pCount = isLowEnd() ? 500 : 1500;
+            const pCount = isLowEnd() ? 400 : 1000;
             const pos = new Float32Array(pCount * 3);
             for(let i=0; i<pCount*3; i++) pos[i] = (Math.random() - 0.5) * 100;
             const pGeo = new THREE.BufferGeometry();
             pGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-            particles = new THREE.Points(pGeo, new THREE.PointsMaterial({ color: 0xFDE047, size: 0.15 }));
+            particles = new THREE.Points(pGeo, new THREE.PointsMaterial({ color: 0xFDE047, size: 0.12 }));
             scene.add(particles);
 
             camera.position.z = 35;
 
             function animate() {
                 requestAnimationFrame(animate);
-                knot.rotation.x += 0.003; knot.rotation.y += 0.005;
+                knot.rotation.x += 0.002; knot.rotation.y += 0.003;
                 const scrollPos = window.scrollY;
-                camera.position.z += ((35 - (scrollPos * 0.03)) - camera.position.z) * 0.05;
-                knot.rotation.z = scrollPos * 0.0005;
-                particles.rotation.y -= 0.0005;
+                camera.position.z += ((35 - (scrollPos * 0.02)) - camera.position.z) * 0.05;
+                particles.rotation.y -= 0.0004;
                 renderer.render(scene, camera);
             }
             animate();
@@ -239,15 +443,11 @@
         const logo = document.getElementById('logo-easter-egg');
         logo.addEventListener('click', () => {
             knot.rotation.y += 5;
-            knot.rotation.x += 2;
-            document.body.style.transition = 'background 0.5s';
-            document.body.style.background = '#0000A0';
-            setTimeout(() => { document.body.style.background = '#000080'; }, 500);
             logo.animate([
                 { transform: 'scale(1)' },
-                { transform: 'scale(1.5) rotate(360deg)' },
+                { transform: 'scale(1.3) rotate(360deg)' },
                 { transform: 'scale(1)' }
-            ], { duration: 600, easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)' });
+            ], { duration: 600, easing: 'ease-in-out' });
         });
 
         window.onload = init3D;
@@ -257,25 +457,11 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
         };
 
-
-
-        
-document.querySelectorAll('button').forEach(btn => {
-  btn.addEventListener('click', () => {
-    if (navigator.vibrate) {
-      navigator.vibrate(75); // Haptic for Android
-    }
-  });
-});
+        document.querySelectorAll('a, .btn-glass').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (navigator.vibrate) navigator.vibrate(40);
+            });
+        });
     </script>
 </body>
-
 </html>
-
-
-
-
-
-
-
-
