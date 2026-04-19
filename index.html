@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hack Club Curaçao</title>
-    <meta name="description" content="Looking for a Hack Club near me? Join Hack Club Curaçao, the premier coding club for student hackers in Curaçao. Build projects, learn to code, and join our community.">
-    <meta name="keywords" content="Hack Club Curaçao, coding club Curaçao, programming for teens Curaçao, Hack Club near me, student hackers, Curaçao tech">
+    <meta name="description" content="Join Hack Club Curaçao at Bright Club, the premier coding club for students aged 13-18. Build projects, learn to code, and join our community.">
+    <meta name="keywords" content="Hack Club Curaçao, coding club Curaçao, programming for teens Curaçao, Bright Club Curacao, student hackers, Curaçao tech">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://curahack.club/">
-    <meta property="og:title" content="Hack Club Curaçao | Coding Club for Students">
-    <meta property="og:description" content="Build awesome projects with the best coding community in Curaçao.">
+    <meta property="og:title" content="Hack Club Curaçao | Ages 13-18">
+    <meta property="og:description" content="Build awesome projects at Bright Club Curaçao. The best coding community for teens.">
     <meta property="og:image" content="https://curahack.club/logo.png">
     <meta property="og:site_name" content="Hack Club Curaçao">
 
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://curahack.club/">
-    <meta property="twitter:title" content="Hack Club Curaçao | Coding Club for Students">
-    <meta property="twitter:description" content="Join the student-led hacking movement in Curaçao.">
+    <meta property="twitter:title" content="Hack Club Curaçao | Ages 13-18">
+    <meta property="twitter:description" content="Join the student-led hacking movement at Bright Club Curaçao.">
     <meta property="twitter:image" content="https://curahack.club/logo.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -63,7 +63,6 @@
             transform: translateY(-5px) scale(1.01);
         }
 
-        /* --- LIQUID GLASS INTERACTION --- */
         .btn-glass {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
@@ -92,7 +91,6 @@
             transition: all 0.1s ease;
         }
 
-        /* Logo Easter Egg Styling */
         .logo-container {
             cursor: pointer;
             transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -120,7 +118,6 @@
 
     <canvas id="three-canvas"></canvas>
 
-    <!-- Navbar -->
     <nav class="fixed top-0 w-full p-4 md:p-8 flex justify-between items-center z-50">
         <div id="logo-easter-egg" class="logo-container p-2 rounded-xl bg-transparent">
             <img src="logo.svg" alt="Hack Club Curaçao" class="h-8 md:h-10 w-auto rounded-lg">
@@ -136,48 +133,48 @@
         </div>
     </nav>
 
-    <!-- Hero -->
     <section class="min-h-screen flex flex-col justify-center items-center text-center px-4">
         <div class="glass p-10 md:p-20 shadow-2xl max-w-5xl">
             <h1 class="text-6xl sm:text-7xl md:text-9xl font-black italic tracking-tighter uppercase leading-[0.85] mb-6">
                 Build<br><span class="text-yellow-400">Different.</span>
             </h1>
-            <p class="text-lg md:text-2xl font-medium opacity-90 max-w-2xl mx-auto mb-10">
+            <p class="text-lg md:text-2xl font-medium opacity-90 max-w-2xl mx-auto mb-4">
                 The student-led coding community in Curaçao. We ship real projects, hardware, and code.
+            </p>
+            <p class="text-sm md:text-lg font-bold uppercase tracking-widest text-yellow-400 mb-10">
+                Ages 13–18 • Located at Bright Club
             </p>
             <div class="h-2 w-24 bg-yellow-400 mx-auto rounded-full shadow-[0_0_30px_rgba(250,204,21,0.8)]"></div>
         </div>
     </section>
 
-    <!-- About Section -->
     <section id="about" class="section-padding max-w-6xl mx-auto grid md:grid-cols-2 gap-10">
         <div class="glass p-8 md:p-10">
             <h2 class="text-4xl font-black uppercase italic mb-6">What we do</h2>
             <p class="text-lg opacity-80 leading-relaxed mb-6">
-                We are a proud chapter of <a href="https://hackclub.com" target="_blank" class="text-yellow-400 underline hover:opacity-80">Hack Club</a>, a global non-profit community for student makers. 
+                We are a proud chapter of <a href="https://hackclub.com" target="_blank" class="text-yellow-400 underline hover:opacity-80">Hack Club</a>, a global non-profit community for makers aged 13-18. 
             </p>
             <p class="text-lg opacity-80 leading-relaxed mb-6">
-                <strong>Club Meetings:</strong> We get together to enjoy the evening, code in groups, and work on our projects. It's a space to learn from mistakes and build cool things.
+                <strong>Club Meetings:</strong> We meet at <span class="text-yellow-400 font-bold">Bright Club Curaçao</span> to code in groups and work on projects. It's a space to learn from mistakes and build cool things.
             </p>
             <p class="text-lg opacity-80 leading-relaxed mb-6">
                 <strong>Hackathons:</strong> Huge events where everyone is invited to show off what they've built, code together, and just have fun.
             </p>
             <p class="text-lg opacity-80 leading-relaxed">
-                <strong>YSWS:</strong> "You Ship, We Ship" build a project, share it with the world, and get free hardware or stickers from the global community.
+                <strong>YSWS:</strong> "You Ship, We Ship" build a project, share it with the world, and get free hardware or stickers.
             </p>
         </div>
         <div class="glass p-8 md:p-10 flex flex-col justify-center border-yellow-400/20">
-            <h2 class="text-4xl font-black uppercase italic mb-6 text-yellow-400">What we do</h2>
+            <h2 class="text-4xl font-black uppercase italic mb-6 text-yellow-400">Membership</h2>
             <ul class="space-y-4 text-xl font-bold italic">
+                <li class="flex items-center gap-3 transition-all hover:translate-x-2"><span class="text-yellow-400">📍</span> <a href="https://maps.app.goo.gl/n68TzQqMvprjvBHcA" target="_blank" class="underline hover:text-yellow-200">BRIGHT CLUB CURAÇAO</a></li>
+                <li class="flex items-center gap-3 transition-all hover:translate-x-2"><span class="text-yellow-400">🎂</span> AGES 13 - 18 ONLY</li>
                 <li class="flex items-center gap-3 transition-all hover:translate-x-2"><span class="text-yellow-400">⚡</span> LEARN BY DOING</li>
-                <li class="flex items-center gap-3 transition-all hover:translate-x-2"><span class="text-yellow-400">🛠️</span> HARDWARE & SPRINTING</li>
-                <li class="flex items-center gap-3 transition-all hover:translate-x-2"><span class="text-yellow-400">🌐</span> GLOBAL NETWORK</li>
                 <li class="flex items-center gap-3 transition-all hover:translate-x-2"><span class="text-yellow-400">🤝</span> 100% STUDENT LED</li>
             </ul>
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact" class="section-padding text-center">
         <div class="glass p-10 md:p-12 max-w-4xl mx-auto">
             <h2 class="text-5xl font-black uppercase italic mb-8 tracking-tighter">Connect with us</h2>
@@ -195,7 +192,7 @@
                     Email
                 </a>
             </div>
-            <p class="opacity-40 text-xs font-bold uppercase tracking-widest">© 2026 Hack Club Curaçao • Made for the makers</p>
+            <p class="opacity-40 text-xs font-bold uppercase tracking-widest">© 2026 Hack Club Curaçao • Bright Club • Made for the makers</p>
         </div>
     </section>
 
@@ -257,25 +254,13 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
         };
 
-
-
-        
-document.querySelectorAll('button').forEach(btn => {
-  btn.addEventListener('click', () => {
-    if (navigator.vibrate) {
-      navigator.vibrate(75); // Haptic for Android
-    }
-  });
-});
+        document.querySelectorAll('button').forEach(btn => {
+          btn.addEventListener('click', () => {
+            if (navigator.vibrate) {
+              navigator.vibrate(75); 
+            }
+          });
+        });
     </script>
 </body>
-
 </html>
-
-
-
-
-
-
-
-
