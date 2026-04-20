@@ -159,6 +159,7 @@
     <canvas id="three-canvas"></canvas>
 
 <nav class="fixed top-0 w-full p-4 md:p-6 z-50">
+<<<<<<< HEAD
         <div class="glass mx-auto max-w-7xl p-3 md:p-4 flex justify-between items-center border-white/20 shadow-2xl">
             <div id="logo-easter-egg" class="logo-container bg-transparent">
                 <img src="logo.svg" alt="Hack Club Curaçao" class="h-8 md:h-9 w-auto rounded-lg">
@@ -173,6 +174,29 @@
                     Join
                 </a>
             </div>
+=======
+    <div id="nav-overlay" class="fixed inset-0 bg-black/60 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden"></div>
+
+    <div class="glass mx-auto max-w-7xl p-3 md:p-4 flex justify-between items-center border-white/20 shadow-2xl relative z-50">
+        <div id="logo-easter-egg" class="logo-container bg-transparent">
+            <img src="logo.png" alt="Hack Club Curaçao" class="h-8 md:h-9 w-auto rounded-lg">
+        </div>
+
+        <button id="menu-toggle" class="md:hidden btn-glass p-2 rounded-xl text-yellow-400 active:scale-90 transition-transform" aria-label="Toggle Menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        </button>
+        
+        <div id="nav-links" class="hidden md:flex flex-col md:flex-row absolute md:relative top-[calc(100%+1rem)] left-0 w-full md:w-auto p-8 md:p-0 bg-black/95 md:bg-transparent backdrop-blur-3xl md:backdrop-blur-0 border border-white/10 md:border-none rounded-[30px] md:rounded-none gap-4 md:gap-4 font-bold uppercase tracking-widest text-xs md:text-[10px] items-center text-center shadow-2xl transition-all duration-300 ease-out origin-top -translate-y-4 opacity-0 md:translate-y-0 md:opacity-100">
+            <a href="rules.html" class="btn-glass w-full md:w-auto px-6 py-3 md:px-5 md:py-2 rounded-full border-white/10">Rules</a>
+            <a href="schedule.html" class="btn-glass w-full md:w-auto px-6 py-3 md:px-5 md:py-2 rounded-full border-white/10">Schedule</a>
+            <a href="#about" class="btn-glass w-full md:w-auto px-6 py-3 md:px-5 md:py-2 rounded-full border-white/10">About</a>
+            <a href="#contact" class="btn-glass w-full md:w-auto px-6 py-3 md:px-5 md:py-2 rounded-full border-white/10">Contact</a>
+            <a href="https://join.curahack.club" class="btn-glass w-full md:w-auto px-6 py-4 md:px-5 md:py-2.5 rounded-full font-black text-sm md:text-xs text-yellow-400 border-yellow-400/30">
+                Join Now
+            </a>
+>>>>>>> a2d5d0b (fixed mobile some more ig and fixed logo rendering for iphones (low quality rendering for svgs))
         </div>
     </div>
 
