@@ -172,37 +172,55 @@ section {
     box-shadow: 0 0 15px rgba(253, 224, 71, 0.6);
     will-change: width;
 }
+/* Standardized button style */
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1.2);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-glass:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: #FDE047;
+            transform: scale(1.05);
+        }
+
+        /* Sponsor Loop and other styles remain same... */
+        .sponsor-container { overflow: hidden; padding: 40px 0; position: relative; background: rgba(255, 255, 255, 0.03); margin-top: 20px; display: flex; align-items: center; } 
+        .sponsor-track { display: flex; width: max-content; animation: scroll 40s linear infinite; will-change: transform; } 
+        .sponsor-track img { height: 35px; width: auto; margin: 0 50px; filter: grayscale(1) brightness(3); opacity: 0.4; }
+        @keyframes scroll { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-50%, 0, 0); } }
+        html { scroll-behavior: smooth; }
+        section { scroll-margin-top: 100px; }
+        #scroll-progress { box-shadow: 0 0 15px rgba(253, 224, 71, 0.6); will-change: width; }
 
     </style>
 </head>
 <body>
 
-    <canvas id="three-canvas"></canvas>
-
+<canvas id="three-canvas"></canvas>
     <div id="scroll-progress" class="fixed top-0 left-0 h-1 bg-yellow-400 z-[60] transition-all duration-100" style="width: 0%;"></div>
 
 <nav class="fixed top-0 w-full p-5 md:p-10 z-50">
     <div id="nav-overlay" class="fixed inset-0 bg-black/70 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden"></div>
-
     <div class="mx-auto max-w-7xl flex justify-between items-center relative z-50">
         <div id="logo-easter-egg" class="logo-container cursor-pointer">
             <img src="logo.png" alt="Hack Club Curaçao" class="h-10 md:h-12 w-auto rounded-lg">
         </div>
-
-        <button id="menu-toggle" class="md:hidden btn-glass p-3 rounded-2xl text-yellow-400 active:scale-90 transition-transform z-50" aria-label="Toggle Menu">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-            </svg>
+        <button id="menu-toggle" class="md:hidden btn-glass p-3 rounded-2xl text-yellow-400 z-50">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
         </button>
-        
-        <div id="nav-links" class="hidden md:flex flex-col md:flex-row absolute md:relative top-[calc(100%+2rem)] md:top-auto left-1/2 md:left-auto -translate-x-1/2 md:translate-x-0 w-[90%] max-w-sm md:w-auto p-8 md:p-0 bg-black/95 md:bg-transparent backdrop-blur-3xl md:backdrop-blur-0 border border-white/10 md:border-none rounded-[40px] md:rounded-none gap-4 md:gap-5 font-bold uppercase tracking-widest text-xs items-center text-center shadow-2xl transition-all duration-300 ease-out origin-top -translate-y-4 opacity-0 md:translate-y-0 md:opacity-100">
-            <a href="rules.html" class="btn-glass w-full md:w-auto px-6 py-4 md:px-6 md:py-2.5 rounded-full border-white/10">Rules</a>
-            <a href="schedule.html" class="btn-glass w-full md:w-auto px-6 py-4 md:px-6 md:py-2.5 rounded-full border-white/10">Schedule</a>
-            <a href="#about" class="btn-glass w-full md:w-auto px-6 py-4 md:px-6 md:py-2.5 rounded-full border-white/10">About</a>
-            <a href="#contact" class="btn-glass w-full md:w-auto px-6 py-4 md:px-6 md:py-2.5 rounded-full border-white/10">Contact</a>
-            <a href="https://join.curahack.club" class="btn-glass w-full md:w-auto px-6 py-5 md:px-7 md:py-3 rounded-full font-black text-lg md:text-sm text-yellow-400 border-yellow-400/40 shadow-lg">
-                Join Now
-            </a>
+        <div id="nav-links" class="hidden md:flex flex-col md:flex-row absolute md:relative top-[calc(100%+2rem)] md:top-auto left-1/2 md:left-auto -translate-x-1/2 md:translate-x-0 w-[90%] max-w-sm md:w-auto p-8 md:p-0 bg-black/95 md:bg-transparent backdrop-blur-3xl md:backdrop-blur-0 border border-white/20 md:border-none rounded-[40px] md:rounded-none gap-4 md:gap-5 font-bold uppercase tracking-widest text-xs items-center text-center shadow-2xl md:shadow-none transition-all duration-300 ease-out">
+            <a href="rules.html" class="nav-btn-solid w-full md:w-auto px-6 py-4 md:px-6 md:py-2.5 rounded-full border border-white/20">Rules</a>
+            <a href="schedule.html" class="nav-btn-solid w-full md:w-auto px-6 py-4 md:px-6 md:py-2.5 rounded-full border border-white/20">Schedule</a>
+            <a href="#about" class="nav-btn-solid w-full md:w-auto px-6 py-4 md:px-6 md:py-2.5 rounded-full border border-white/20">About</a>
+            <a href="#contact" class="nav-btn-solid w-full md:w-auto px-6 py-4 md:px-6 md:py-2.5 rounded-full border border-white/20">Contact</a>
+            <a href="https://join.curahack.club" class="nav-btn-solid w-full md:w-auto px-6 py-5 md:px-7 md:py-3 rounded-full font-black text-lg md:text-sm text-yellow-400 border border-yellow-400/40 shadow-lg whitespace-nowrap bg-yellow-400/10">Join Now</a>
         </div>
     </div>
 </nav>
@@ -380,11 +398,6 @@ section {
     </div>
 </section>
 
-
-
-
-
-
     <section class="relative py-24 overflow-hidden bg-white/5 border-y border-white/10">
         <div class="relative z-10 max-w-5xl mx-auto text-center px-6 mb-12">
             <h2 class="text-4xl md:text-6xl font-black uppercase italic mb-4">International Impact</h2>
@@ -478,87 +491,123 @@ section {
 
 <script> 
 // --- 3D SCENE CONFIG ---
+// --- 3D SCENE CONFIG ---
 let scene, camera, renderer, knot, particles;
+let animationId;
 
-// Check for lower-end hardware to reduce load
-const isLowEnd = () => (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
+// Performance helper - cached result
+const IS_LOW_END = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
 
+/**
+ * Optimized 3D Background Initialization
+ */
 function init3D() {
+    const canvas = document.getElementById('three-canvas');
+    if (!canvas) return;
+
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     
     renderer = new THREE.WebGLRenderer({ 
-        canvas: document.getElementById('three-canvas'), 
+        canvas: canvas, 
         alpha: true, 
-        antialias: false, // Performance boost
+        antialias: !IS_LOW_END, 
         powerPreference: "high-performance",
-        precision: "lowp" // Fast shader processing
+        precision: IS_LOW_END ? "lowp" : "mediump"
     });
     
     renderer.setSize(window.innerWidth, window.innerHeight);
-    // Cap pixel ratio to avoid rendering millions of unnecessary pixels on mobile
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 
-    // Optimized Geometry: Fewer segments = higher FPS
-    const geometry = new THREE.TorusKnotGeometry(10, 3, isLowEnd() ? 30 : 60, 8); 
-    knot = new THREE.Mesh(geometry, new THREE.MeshNormalMaterial({ wireframe: true }));
+    // Geometry Optimization
+    const knotRes = IS_LOW_END ? 40 : 80;
+    const geometry = new THREE.TorusKnotGeometry(10, 3, knotRes, 8); 
+    const material = new THREE.MeshNormalMaterial({ wireframe: true });
+    knot = new THREE.Mesh(geometry, material);
+    knot.frustumCulled = true; 
     scene.add(knot);
 
-    // Optimized Particles
-    const pCount = isLowEnd() ? 200 : 600; 
+    // Particle Optimization
+    const pCount = IS_LOW_END ? 150 : 500; 
     const pos = new Float32Array(pCount * 3);
-    for(let i=0; i<pCount*3; i++) pos[i] = (Math.random() - 0.5) * 100;
+    for(let i=0; i<pCount*3; i++) pos[i] = (Math.random() - 0.5) * 120;
+    
     const pGeo = new THREE.BufferGeometry();
     pGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-    particles = new THREE.Points(pGeo, new THREE.PointsMaterial({ color: 0xFDE047, size: 0.15 }));
+    particles = new THREE.Points(pGeo, new THREE.PointsMaterial({ 
+        color: 0xFDE047, 
+        size: 0.12,
+        transparent: true,
+        opacity: 0.8
+    }));
     scene.add(particles);
 
     camera.position.z = 35;
 
-    // Throttled target for scroll-based movement
     let targetZ = 35;
+    let currentZ = 35;
+
+    // Optimized Scroll Listener (Throttled via RequestAnimationFrame)
     window.addEventListener('scroll', () => {
-        targetZ = 35 - (window.scrollY * 0.015);
+        targetZ = 35 - (window.pageYOffset * 0.012);
     }, { passive: true });
 
     function animate() {
-        requestAnimationFrame(animate);
+        animationId = requestAnimationFrame(animate);
         
-        // Basic rotation
-        knot.rotation.x += 0.0015;
-        knot.rotation.y += 0.002;
+        const time = performance.now() * 0.0005;
         
-        // Smooth camera dampening
-        camera.position.z += (targetZ - camera.position.z) * 0.05;
+        if (knot) {
+            knot.rotation.x = time * 0.3;
+            knot.rotation.y = time * 0.4;
+        }
         
-        particles.rotation.y -= 0.0002;
+        if (particles) {
+            particles.rotation.y -= 0.00015;
+        }
+        
+        // Smoother Lerp for camera
+        currentZ += (targetZ - currentZ) * 0.08;
+        camera.position.z = currentZ;
         
         renderer.render(scene, camera);
     }
+    
+    // Visibility API to save resources
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) cancelAnimationFrame(animationId);
+        else animate();
+    });
+
     animate();
 }
 
-// --- UI INTERACTIONS ---
+// --- UI & UTILS ---
 
-// 1. Scroll Logic
+// 1. Optimized Scroll & Progress Logic
 const scrollBtn = document.getElementById('scroll-up');
 const progressBar = document.getElementById('scroll-progress');
 
-window.addEventListener('scroll', () => {
-    const winScroll = document.documentElement.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+const handleScroll = () => {
+    const winScroll = window.pageYOffset;
+    const height = document.documentElement.scrollHeight - window.innerHeight;
     const scrolled = (winScroll / height) * 100;
     
-    if (progressBar) progressBar.style.width = scrolled + "%";
+    if (progressBar) progressBar.style.width = `${scrolled}%`;
 
+    // Toggle Scroll-to-top button
     if (winScroll > 400) {
-        scrollBtn?.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
-        scrollBtn?.classList.add('opacity-100', 'translate-y-0');
+        scrollBtn?.classList.replace('opacity-0', 'opacity-100');
+        scrollBtn?.classList.replace('translate-y-10', 'translate-y-0');
+        scrollBtn.style.pointerEvents = 'auto';
     } else {
-        scrollBtn?.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
-        scrollBtn?.classList.remove('opacity-100', 'translate-y-0');
+        scrollBtn?.classList.replace('opacity-100', 'opacity-0');
+        scrollBtn?.classList.replace('translate-y-0', 'translate-y-10');
+        scrollBtn.style.pointerEvents = 'none';
     }
-}, { passive: true });
+};
+
+window.addEventListener('scroll', handleScroll, { passive: true });
 
 scrollBtn?.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -570,60 +619,51 @@ const navLinks = document.getElementById('nav-links');
 const navOverlay = document.getElementById('nav-overlay');
 const menuIcon = document.getElementById('menu-icon');
 
-function toggleMenu() {
-    const isHidden = navLinks.classList.contains('hidden');
+const toggleMenu = () => {
+    const isOpen = navLinks.classList.contains('flex');
     
-    if (isHidden) {
-        navLinks.classList.remove('hidden');
-        navLinks.classList.add('flex');
-        navOverlay.classList.remove('pointer-events-none');
-        navOverlay.classList.add('opacity-100');
-        document.body.style.overflow = 'hidden';
-        
-        setTimeout(() => {
-            navLinks.classList.remove('-translate-y-4', 'opacity-0');
-            navLinks.classList.add('translate-y-0', 'opacity-100');
-        }, 10);
-        
-        menuIcon.setAttribute('d', 'M6 18L18 6M6 6l12 12');
-        if (navigator.vibrate) navigator.vibrate(40);
-    } else {
-        navLinks.classList.remove('translate-y-0', 'opacity-100');
-        navLinks.classList.add('-translate-y-4', 'opacity-0');
-        navOverlay.classList.remove('opacity-100');
-        navOverlay.classList.add('opacity-0', 'pointer-events-none');
-        document.body.style.overflow = '';
-        
-        setTimeout(() => {
-            navLinks.classList.add('hidden');
-            navLinks.classList.remove('flex');
-        }, 300);
-        
-        menuIcon.setAttribute('d', 'M4 6h16M4 12h16m-7 6h7');
-    }
-}
+    // State toggle
+    navLinks.classList.toggle('hidden', isOpen);
+    navLinks.classList.toggle('flex', !isOpen);
+    navOverlay.classList.toggle('opacity-0', isOpen);
+    navOverlay.classList.toggle('opacity-100', !isOpen);
+    navOverlay.classList.toggle('pointer-events-none', isOpen);
+    document.body.style.overflow = isOpen ? '' : 'hidden';
+    
+    // Animation trigger
+    setTimeout(() => {
+        navLinks.classList.toggle('opacity-0', isOpen);
+        navLinks.classList.toggle('-translate-y-4', isOpen);
+        navLinks.classList.toggle('translate-y-0', !isOpen);
+    }, 10);
+    
+    // Icon swap
+    menuIcon.setAttribute('d', isOpen ? 'M4 6h16M4 12h16m-7 6h7' : 'M6 18L18 6M6 6l12 12');
+    
+    if (navigator.vibrate) navigator.vibrate(isOpen ? 30 : 40);
+};
 
 menuToggle?.addEventListener('click', toggleMenu);
 navOverlay?.addEventListener('click', toggleMenu);
 
-// Close menu when links are clicked
+// Close menu on link click (Mobile)
 document.querySelectorAll('#nav-links a').forEach(link => {
     link.addEventListener('click', () => {
-        if (window.innerWidth < 768) toggleMenu();
-        if (navigator.vibrate) navigator.vibrate(30);
+        if (window.innerWidth < 768 && navLinks.classList.contains('flex')) toggleMenu();
     });
 });
 
-// 3. Logo Easter Egg
+// 3. Logo & Easter Egg Logic
 let clickCount = 0;
 let clickTimer;
 const logo = document.getElementById('logo-easter-egg');
 
 logo?.addEventListener('click', () => {
     if (knot) knot.rotation.y += 5;
+    
     logo.animate([
         { transform: 'scale(1)' },
-        { transform: 'scale(1.3) rotate(360deg)' },
+        { transform: 'scale(1.2) rotate(10deg)' },
         { transform: 'scale(1)' }
     ], { duration: 300, easing: 'ease-in-out' });
     
@@ -633,7 +673,7 @@ logo?.addEventListener('click', () => {
     clearTimeout(clickTimer);
     clickTimer = setTimeout(() => { clickCount = 0; }, 2000);
 
-    if (clickCount >= 3) {
+    if (clickCount >= 5) {
         clickCount = 0;
         triggerRickRoll();
     }
@@ -642,34 +682,35 @@ logo?.addEventListener('click', () => {
 function triggerRickRoll() {
     if (document.getElementById('rickroll-overlay')) return;
 
-    const rollContainer = document.createElement('div');
-    rollContainer.id = "rickroll-overlay";
-    rollContainer.className = "fixed inset-0 z-[999] bg-black/95 backdrop-blur-3xl flex items-center justify-center p-4";
-    
-rollContainer.innerHTML = `
-    <div class="relative w-full max-w-4xl aspect-video glass p-1 shadow-[0_0_100px_rgba(253,224,71,0.2)] border border-yellow-400/20 rounded-2xl">
-        <button onclick="this.closest('#rickroll-overlay').remove()" 
-            class="absolute -top-16 right-0 btn-glass px-6 py-2 rounded-full text-white font-black uppercase tracking-[0.2em] text-[10px] border-white/20 hover:border-yellow-400 transition-all">
-            Close [X]
-        </button>
-        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=0&controls=1&modestbranding=1&rel=0&showinfo=0&enablejsapi=1"" title="get rickrolled lol" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    </div>
-`;
-    document.body.appendChild(rollContainer);
+    const overlay = document.createElement('div');
+    overlay.id = "rickroll-overlay";
+    overlay.className = "fixed inset-0 z-[999] bg-black/95 backdrop-blur-3xl flex items-center justify-center p-4";
+    overlay.innerHTML = `
+        <div class="relative w-full max-w-4xl aspect-video glass p-1 rounded-2xl">
+            <button onclick="this.closest('#rickroll-overlay').remove()" 
+                class="absolute -top-12 right-0 text-white font-bold uppercase tracking-widest text-xs">
+                Close [X]
+            </button>
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+    `;
+    document.body.appendChild(overlay);
 }
 
-// --- INITIALIZATION ---
-window.onload = () => {
-    init3D();
-};
-
+// 4. Global Event Handlers
+let resizeTimeout;
 window.addEventListener('resize', () => {
-    if (camera && renderer) {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-    }
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+        if (camera && renderer) {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+    }, 200);
 });
+
+window.onload = init3D;
 
 </script>
 <button id="scroll-up" class="fixed bottom-8 right-8 w-14 h-14 rounded-full z-[100] opacity-0 translate-y-10 pointer-events-none transition-all duration-500 border border-yellow-400/30 shadow-2xl bg-white/10 backdrop-blur-md flex items-center justify-center">
